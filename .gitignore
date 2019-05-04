@@ -30,3 +30,5 @@ build/env.js
 /logs
 *.png
 tensorflow/train_images
+tensorflow/train_saver
+
