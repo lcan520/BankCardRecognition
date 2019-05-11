@@ -14,7 +14,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@tensorflow/tfjs": "^1.1.0",
+    "@tensorflow/tfjs-converter": "^1.1.2",
+    "get-pixels": "^3.3.2",
+    "global": "^4.3.2",
+    "iview": "^3.4.1",
     "vue": "^2.5.2",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

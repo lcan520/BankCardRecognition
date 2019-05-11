@@ -21,7 +21,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
+*.jpg
 build/env.js
 
 .git
