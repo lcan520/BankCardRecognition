@@ -1,4 +1,4 @@
-package com.bankcardrecognition.server.system.recognition.service;
+package com.bankcardrecognition.server.utils.image;
 
 
 import com.sun.jna.Library;

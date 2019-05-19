@@ -1,4 +1,4 @@
-package com.bankcardrecognition.server.system.recognition.service;
+package com.bankcardrecognition.server.utils.image;
 
 import org.apache.commons.io.IOUtils;
 import org.tensorflow.*;
@@ -75,13 +75,17 @@ public class TensorflowModel {
             }
         }
     }
-
+    
     private static float[][] byteArray2FloatArray(byte[][] data) {
         float[][] floatPixels = new float[data.length][24 * 24 * 3];
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
                 float pixels= data[i][j] & 0xff;
-                floatPixels[i][j] = pixels/255.0F;
+                pixels = pixels/255.0F;
+                pixels = pixels - 0.5F;
+                pixels = pixels*2.0F;
+                floatPixels[i][j] = pixels;
+
             }
         }
         return floatPixels;

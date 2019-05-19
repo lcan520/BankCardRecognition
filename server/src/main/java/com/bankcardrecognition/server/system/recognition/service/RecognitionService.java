@@ -1,7 +1,8 @@
 package com.bankcardrecognition.server.system.recognition.service;
 
 import com.bankcardrecognition.server.utils.image.ImageUtils;
-import org.apache.tomcat.jni.Time;
+import com.bankcardrecognition.server.utils.image.OpencvDLL;
+import com.bankcardrecognition.server.utils.image.TensorflowModel;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
