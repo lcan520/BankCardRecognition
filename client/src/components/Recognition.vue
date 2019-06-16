@@ -18,10 +18,18 @@
         <p>拖拽图片到此处</p>
       </div>
     </Upload>
-    <div >
-      <div class v-for="num in numList" style="display: inline-flex;">
-        <div class v-for="(cahr,pro) in num" >
-          <Button type="default" size="small"> <span>{{pro}}</span></Button>
+    <div style="margin-top:5px;margin-bottom:5px">
+      <img :src="preSrc.value" 
+           v-if="preSrc.value" 
+           style="display: inline-flex;"
+      >
+    </div>
+    <div>
+      <div class v-for="num in numList" style="display: inline-flex; margin-right: 4.5px;">
+        <div class v-for="(cahr,pro) in num">
+          <Button type="default" size="small">
+            <span>{{pro}}</span>
+          </Button>
         </div>
       </div>
     </div>
@@ -40,7 +48,6 @@
 import * as tf from "@tensorflow/tfjs";
 import getPixels from "get-pixels";
 
-
 export default {
   name: "Recognition",
   data() {
@@ -48,7 +55,10 @@ export default {
       numList: [],
       imgName: "",
       visible: false,
-      uploadList: []
+      uploadList: [],
+      preSrc: {
+        value: ""
+      }
     };
   },
   methods: {
@@ -61,31 +71,40 @@ export default {
       this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
     },
     handleSuccess(res, file) {
-      console.log(res);
-      this.numList = res;
-     
-      console.log(">>>numList", this.numList);
+      if (res.success) {
+        this.numList = res.data.charList;
+        this.$set(
+          this.preSrc,
+          "value",
+          `http://localhost:8082/preview/${res.data.url}.jpg`
+        );
+      } else {
+        this.$Notice.warning({
+          title: "识别错误！",
+          desc: "识别错误，未检测出银行卡图像"
+        });
+      }
     },
     handleFormatError(file) {
       this.$Notice.warning({
-        title: "The file format is incorrect",
+        title: "格式错误！",
         desc:
           "File format of " +
           file.name +
-          " is incorrect, please select jpg or png."
+          `文件 ${file.name} 格式错误，支持 jpg、png.`
       });
     },
     handleMaxSize(file) {
       this.$Notice.warning({
-        title: "Exceeding file size limit",
-        desc: "File  " + file.name + " is too large, no more than 2M."
+        title: "文件过大！",
+        desc:`文件${file.name}过大，支持2M一下文件`
       });
     },
     handleBeforeUpload(files) {
       const check = this.uploadList.length < 10;
       if (!check) {
         this.$Notice.warning({
-          title: "Up to five pictures can be uploaded."
+          title: "连续上传文件超过10个"
         });
       }
       return check;

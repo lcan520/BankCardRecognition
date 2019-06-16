@@ -31,7 +31,7 @@ public class RecognitionController {
 
     @Autowired
     private RecognitionService recognitionService;
-
+    
     /**
      * 识别银行卡
      *
@@ -40,7 +40,7 @@ public class RecognitionController {
      */
     @RequestMapping(value = "/recognition")
     @ResponseBody
-    public String recognition(@RequestParam("file") MultipartFile imageFile) {
+    public JsonResult recognition(@RequestParam("file") MultipartFile imageFile) {
         String fileName = imageFile.getOriginalFilename();
         // 获取文件后缀
         String prefix = fileName.substring(fileName.lastIndexOf("."));
@@ -53,13 +53,12 @@ public class RecognitionController {
             Mat imageMat = recognitionService.convertFile2Mat(file);
 
             Mat correctMat = recognitionService.correctImage(imageMat);
-            ArrayList<Map> result = recognitionService.recognitionCharImg(correctMat);
-            return JSONObject.toJSONString(result);
+            Map result = recognitionService.recognitionCharImg(correctMat);
+            return JsonResult.success(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return JsonResult.failure(CodeMsg.ModelCodeMsg.CONDITION).getMessage();
+        return JsonResult.failure(CodeMsg.ModelCodeMsg.CONDITION);
     }
 
 

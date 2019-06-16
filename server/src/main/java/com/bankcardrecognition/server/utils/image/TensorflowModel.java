@@ -16,27 +16,6 @@ import java.util.Map;
  * @Modified By:
  */
 public class TensorflowModel {
-//    public static void main(String[] args) throws IOException {
-//        try (Graph graph = new Graph()) {
-//            //导入图
-//            byte[] graphBytes = IOUtils.toByteArray(new
-//                    FileInputStream("./model.pb"));
-//            graph.importGraphDef(graphBytes);
-//
-//            //根据图建立Session
-//            try(Session session = new Session(graph)){
-//                //相当于TensorFlow Python中的sess.run(z, feed_dict = {'x': 10.0})
-//                Long[] i= new Long[2];
-//                i[0] = 1L;
-//                i[1] = 24*24*3L;
-//                Tensor z = session.runner()
-//                        .feed("Placeholder", Tensor.create(i))
-//                        .fetch("model").run().get(0);
-//                System.out.println("z = " + z);
-//            }
-//        }
-//
-//    }
 
     public static ArrayList<Map> predictNum(byte[][] numdata) throws IOException {
         //Map numCharMap = new HashMap<Float, Float>(16);
